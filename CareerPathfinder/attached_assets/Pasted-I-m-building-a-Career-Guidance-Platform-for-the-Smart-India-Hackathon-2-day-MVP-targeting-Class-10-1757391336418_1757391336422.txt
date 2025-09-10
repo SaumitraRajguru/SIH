@@ -1,0 +1,68 @@
+I’m building a Career Guidance Platform for the Smart India Hackathon (2-day MVP) targeting Class 10 and 12 students in India. This platform helps students explore careers, roadmaps, quizzes, and an AI chatbot with personalized insights. I need a complete React.js project set up in Replit with a dark theme, designed from scratch based on the requirements below. The project should be hackathon-ready, polished, and optimized, drawing inspiration from dark-themed career platforms like LinkedIn’s night mode or Notion’s dark UI, with full responsiveness and animations.
+
+**Project Requirements**:
+- **Purpose**: A guidance platform for 10th and 12th graders to discover career paths, plan with roadmaps, assess interests via quizzes, and interact with an AI chatbot.
+- **Target Audience**: Class 10 and 12 students, with content tailored to their needs (e.g., exploration for 10th, planning for 12th).
+- **Features**:
+  - Homepage with a hero section introducing the platform, feature highlights (AI Chatbot, Roadmaps, Quiz), and an About section.
+  - Login/Signup modal with a two-step email verification process (signup with email, name, age, standard, password; verify with a code).
+  - Logged-in dashboard with options for Careers, Roadmaps, Take Quiz, and FAQ.
+  - Navbar with dynamic navigation (Home, About pre-login; Careers, Roadmaps, Quiz, FAQ, Logout post-login).
+- **Tech Stack**: React.js, Tailwind CSS (with dark mode support), framer-motion for animations, react-router-dom for navigation.
+- **Backend**: Placeholder for Django APIs (e.g., `/api/signup`, `/api/verify`) at `http://localhost:8000`, to be mocked in Replit for now.
+- **Design**: Dark theme with a base color scheme of deep grays (`bg-gray-900`), accented by neon gradients (e.g., `from-purple-600 to-blue-500`), glassmorphism (`bg-gray-800/80 backdrop-blur-md`), hover glows, and smooth transitions. Ensure high contrast for readability and a premium, futuristic feel.
+
+**Tasks for Replit**:
+1. **Project Setup**:
+   - Create a new React project in Replit with Node.js.
+   - Install dependencies: `npm install react-router-dom framer-motion axios`.
+   - Set up a basic `App.js` with routes for `/`, `/login`, `/dashboard`, `/careers`, `/roadmaps`, `/quiz`, and `/faq`.
+
+2. **Dark Theme Implementation**:
+   - Enable Tailwind CSS dark mode with `dark` class strategy in `tailwind.config.js`.
+   - Update the base background to `bg-gray-900` and text to `text-gray-100`.
+   - Use neon dark gradients (e.g., `from-purple-600 to-blue-500`) for hero, buttons, and accents.
+   - Apply glassmorphism to cards and modals with `bg-gray-800/80 backdrop-blur-md`.
+
+3. **Component Creation**:
+   - **Homepage**: Include a hero section with a dark gradient background, a tagline tailored for 10th and 12th graders (e.g., “Shape Your Class 12 Future”), a CTA button, and sections for features (AI Chatbot, Roadmaps, Quiz) and About with student-focused content.
+   - **Navbar**: Design a fixed dark navbar with a gradient logo (“CareerGuide”), pre-login options (Home, About, Login/Signup), and post-login options (Careers, Roadmaps, Quiz, FAQ, Logout) with a mobile menu.
+   - **LoginSignupModal**: Create a two-step modal for signup (email, name, age, standard dropdown for Class 10/12, password) and verification (code input), with dark inputs and loading states.
+   - **LoggedInHome**: Build a dashboard with a welcome message using the user’s name, and four interactive cards (Careers, Roadmaps, Take Quiz, FAQ) with dark gradients and animations.
+
+4. **Mock Backend**:
+   - Simulate Django APIs with a simple Node.js server (e.g., using `express`) to handle `/api/signup` and `/api/verify` with mock responses (e.g., return a token).
+   - Include a mock email verification flow (e.g., hardcoded code “123456”).
+
+5. **Optimization and Polish**:
+   - Use `React.memo` to prevent unnecessary re-renders and lazy loading for images or placeholders.
+   - Add custom CSS in `index.css` for `glass` and `shadow-glow` classes (e.g., neon glow effect).
+   - Ensure accessibility with ARIA labels and focus states.
+
+6. **Output**:
+   - Provide a complete project structure with all necessary files.
+   - Include setup instructions (e.g., `npm install`, run server) and a test URL.
+
+**Project Structure**:
+- `/src/pages/HomePage.jsx`
+- `/src/components/Navbar.jsx`
+- `/src/components/LoginSignupModal.jsx`
+- `/src/pages/LoggedInHome.jsx`
+- `/src/utils/api.js` (mock API calls)
+- `/src/utils/auth.js` (token/user storage)
+- `/src/index.css` (custom styles)
+- `/src/App.js` (routes)
+
+**Troubleshooting Notes**:
+- If dark mode fails, check `tailwind.config.js` for dark mode enablement.
+- If API mocks fail, adjust endpoints in `api.js`.
+- For performance, reduce animation durations if needed.
+
+**Vibe Coding Notes**:
+- Create a sleek, futuristic dark theme with neon accents.
+- Keep it demo-ready: Fast, polished, and student-friendly.
+- Test with Replit’s preview and share the URL.
+
+**Additional Instructions**:
+- Ensure the project runs smoothly in Replit’s environment and is ready for a demo by 6 PM IST today.
+- Tailor the content and design to feel engaging and accessible for 10th and 12th graders, using age-appropriate language and examples (e.g., engineering for 12th, skill exploration for 10th).
