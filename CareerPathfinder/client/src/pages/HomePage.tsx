@@ -83,7 +83,7 @@ export default function HomePage() {
             </button>
           </motion.div>
 
-          {/* Stats */}
+          {/* Stats
           <motion.div 
             className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16"
             variants={stagger}
@@ -106,7 +106,7 @@ export default function HomePage() {
               <div className="text-3xl font-bold gradient-text">98%</div>
               <div className="text-gray-400">Success Rate</div>
             </motion.div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </section>
 
