@@ -82,6 +82,11 @@ export default function Navbar() {
                   <a href="#about" className="text-gray-300 hover:text-white transition-colors duration-200" data-testid="nav-about" onClick={handleAboutClick}>
                     About
                   </a>
+                  <Link href="/awareness">
+                    <a className={`text-gray-300 hover:text-white transition-colors duration-200 ${location?.startsWith('/awareness') ? 'text-white' : ''}`} data-testid="nav-awareness">
+                      Awareness
+                    </a>
+                  </Link>
                 </div>
                 
                 {/* Right side - Sign In button */}
@@ -105,6 +110,11 @@ export default function Navbar() {
                   <Link href="/roadmaps">
                     <a className={`text-gray-300 hover:text-white transition-colors duration-200 ${location === '/roadmaps' ? 'text-white' : ''}`} data-testid="nav-roadmaps">
                       Roadmaps
+                    </a>
+                  </Link>
+                  <Link href="/awareness">
+                    <a className={`text-gray-300 hover:text-white transition-colors duration-200 ${location?.startsWith('/awareness') ? 'text-white' : ''}`} data-testid="nav-awareness">
+                      Awareness
                     </a>
                   </Link>
                 </div>
@@ -162,6 +172,11 @@ export default function Navbar() {
                   <a href="#about" onClick={handleAboutClick} className="block text-gray-300 hover:text-white transition-colors duration-200 p-3" data-testid="mobile-nav-about">
                     About
                   </a>
+                  <Link href="/awareness" onClick={closeMobileMenu}>
+                    <a className="block text-gray-300 hover:text-white transition-colors duration-200 p-3" data-testid="mobile-nav-awareness">
+                      Awareness
+                    </a>
+                  </Link>
                   <button
                     onClick={() => {
                       setIsModalOpen(true);
@@ -183,6 +198,11 @@ export default function Navbar() {
                   <Link href="/roadmaps" onClick={closeMobileMenu}>
                     <a className="block text-gray-300 hover:text-white transition-colors duration-200 p-3" data-testid="mobile-nav-roadmaps">
                       Roadmaps
+                    </a>
+                  </Link>
+                  <Link href="/awareness" onClick={closeMobileMenu}>
+                    <a className="block text-gray-300 hover:text-white transition-colors duration-200 p-3" data-testid="mobile-nav-awareness">
+                      Awareness
                     </a>
                   </Link>
                   <Link href="/quiz" onClick={closeMobileMenu}>

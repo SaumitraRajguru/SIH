@@ -140,7 +140,7 @@ export default function Dashboard() {
                   <ClipboardCheck className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Take Quiz</h3>
-                <p className="text-gray-300 text-sm mb-4">Assess your interests and strengths</p>
+                <p className="text-gray-300 text-sm mb-4">Assess your interests and strengths by taking a short quiz</p>
                 <div className="flex items-center text-green-400">
                   <span className="mr-2">Start Now</span>
                   <span>→</span>
@@ -157,7 +157,7 @@ export default function Dashboard() {
                   <HelpCircle className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Get Help</h3>
-                <p className="text-gray-300 text-sm mb-4">Find answers to common questions</p>
+                <p className="text-gray-300 text-sm mb-4">Find answers to common questions and get expert advice</p>
                 <div className="flex items-center text-yellow-400">
                   <span className="mr-2">Learn More</span>
                   <span>→</span>

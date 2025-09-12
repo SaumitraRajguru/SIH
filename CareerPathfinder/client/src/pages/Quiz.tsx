@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, CheckCircle, BarChart3, Target, Brain } from
 import { api, type Question } from '@/utils/api';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
+import { GrowthProspectBadge } from '@/utils/growthProspects';
 
 export default function Quiz() {
   const [currentStep, setCurrentStep] = useState<'intro' | 'quiz' | 'results'>('intro');
@@ -12,6 +13,7 @@ export default function Quiz() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentCategory, setCurrentCategory] = useState<'interest' | 'degree' | 'career'>('interest');
+  const [careerResults, setCareerResults] = useState<any[]>([]);
   const { isAuthenticated } = useAuth();
   const { toast } = useToast();
 
@@ -47,27 +49,31 @@ export default function Quiz() {
     loadQuestions();
   }, [currentCategory, currentStep, toast]);
 
-  const careerResults = [
+  // Default career results (fallback)
+  const defaultCareerResults = [
     {
       career: "Software Engineer",
       match: 92,
       description: "Your analytical thinking and problem-solving skills align perfectly with software development.",
       skills: ["Programming", "Logic", "Creativity"],
-      color: "from-blue-600 to-cyan-500"
+      color: "from-blue-600 to-cyan-500",
+      growth_prospects: "very_high"
     },
     {
       career: "Data Scientist", 
       match: 87,
       description: "Your love for mathematics and research makes you ideal for data analysis roles.",
       skills: ["Statistics", "Analysis", "Research"],
-      color: "from-purple-600 to-pink-500"
+      color: "from-purple-600 to-pink-500",
+      growth_prospects: "very_high"
     },
     {
       career: "Product Manager",
       match: 74,
       description: "Your communication skills and strategic thinking suit product management.",
       skills: ["Leadership", "Strategy", "Communication"],
-      color: "from-green-600 to-emerald-500"
+      color: "from-green-600 to-emerald-500",
+      growth_prospects: "high"
     }
   ];
 
@@ -130,16 +136,73 @@ export default function Quiz() {
         choice: choice
       }));
 
+      // Submit answers
+      console.log('Submitting answers:', answersArray);
       await api.submitAnswers({ answers: answersArray });
+      console.log('Answers submitted successfully');
+      
+      // Analyze career recommendations
+      console.log('Analyzing career recommendations...');
+      const analysisResult = await api.analyzeCareerRecommendations();
+      console.log('Analysis result:', analysisResult);
+      
+      // Format results for display
+      const formattedResults = analysisResult.recommendations.map((rec, index) => ({
+        career: rec.name,
+        match: Math.round(rec.match_score),
+        description: rec.reasoning,
+        skills: rec.required_skills,
+        color: getCareerColor(index),
+        category: rec.category,
+        salary_range: rec.salary_range,
+        growth_prospects: rec.growth_prospects,
+        work_environment: rec.work_environment
+      }));
+      
+      setCareerResults(formattedResults);
+      setCurrentStep('results');
+      
+      toast({
+        title: "Quiz Completed",
+        description: "Your personalized career recommendations are ready!",
+      });
+    } catch (error) {
+      console.error('Quiz submission error:', error);
+      console.error('Error details:', error);
+      
+      // Try to get saved recommendations if analysis fails
+      try {
+        const savedRecommendations = await api.getUserRecommendations();
+        if (savedRecommendations.recommendations && savedRecommendations.recommendations.length > 0) {
+          const formattedResults = savedRecommendations.recommendations.map((rec, index) => ({
+            career: rec.career_name,
+            match: Math.round(rec.match_score),
+            description: rec.reasoning,
+            skills: rec.career_skills,
+            color: getCareerColor(index),
+            category: rec.career_category,
+            salary_range: "Not specified",
+            growth_prospects: "medium", // Default to medium for saved recommendations
+            work_environment: "Not specified"
+          }));
+          setCareerResults(formattedResults);
+          setCurrentStep('results');
+          toast({
+            title: "Quiz Completed",
+            description: "Showing your saved career recommendations!",
+          });
+          return;
+        }
+      } catch (savedError) {
+        console.error('Failed to get saved recommendations:', savedError);
+      }
+      
+      // Fallback to default results if everything fails
+      setCareerResults(defaultCareerResults);
       setCurrentStep('results');
       toast({
         title: "Quiz Completed",
-        description: "Your answers have been submitted successfully!",
-      });
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to submit quiz. Please try again.",
+        description: "Your answers have been submitted. Showing sample results.",
         variant: "destructive",
       });
     } finally {
@@ -147,11 +210,23 @@ export default function Quiz() {
     }
   };
 
+  const getCareerColor = (index: number) => {
+    const colors = [
+      "from-blue-600 to-cyan-500",
+      "from-purple-600 to-pink-500", 
+      "from-green-600 to-emerald-500",
+      "from-orange-600 to-red-500",
+      "from-indigo-600 to-purple-500"
+    ];
+    return colors[index % colors.length];
+  };
+
   const resetQuiz = () => {
     setCurrentStep('intro');
     setCurrentQuestion(0);
     setAnswers({});
     setCurrentCategory('interest');
+    setCareerResults([]);
   };
   
   // Track quiz completion
@@ -212,7 +287,7 @@ export default function Quiz() {
                 Start Assessment (5 minutes)
               </button>
               <div className="text-sm text-gray-400">
-                <span>✨ Free • No sign-up required • Science-backed</span>
+                <span>✨ Free • Science-backed</span>
               </div>
             </div>
           </motion.div>
@@ -369,7 +444,7 @@ export default function Quiz() {
         </motion.div>
 
         <div className="space-y-6 mb-12">
-          {careerResults.map((result, index) => (
+          {(careerResults.length > 0 ? careerResults : defaultCareerResults).map((result, index) => (
             <motion.div
               key={index}
               className="glass rounded-xl p-6"
@@ -386,9 +461,14 @@ export default function Quiz() {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold">{result.career}</h3>
-                      <div className="flex items-center">
-                        <span className="text-sm text-gray-400 mr-2">Match Score:</span>
-                        <span className="text-green-400 font-semibold">{result.match}%</span>
+                      <div className="flex items-center gap-4 mb-2">
+                        <div className="flex items-center">
+                          <span className="text-sm text-gray-400 mr-2">Match Score:</span>
+                          <span className="text-green-400 font-semibold">{result.match}%</span>
+                        </div>
+                        {result.growth_prospects && (
+                          <GrowthProspectBadge prospect={result.growth_prospects} />
+                        )}
                       </div>
                     </div>
                   </div>

@@ -5,7 +5,12 @@ from .views import (
     AnswerCreateView, 
     UserAnswersView,
     quiz_stats,
-    submit_quiz_answers
+    submit_quiz_answers,
+    analyze_career_recommendations,
+    get_user_recommendations,
+    get_all_careers,
+    get_disliked_careers,
+    test_endpoint
 )
 
 urlpatterns = [
@@ -20,4 +25,11 @@ urlpatterns = [
     
     # Stats
     path('stats/', quiz_stats, name='quiz-stats'),
+    
+    # Career Analysis
+    path('analyze/', analyze_career_recommendations, name='analyze-career-recommendations'),
+    path('recommendations/', get_user_recommendations, name='get-user-recommendations'),
+    path('careers/', get_all_careers, name='get-all-careers'),
+    path('disliked-careers/', get_disliked_careers, name='get-disliked-careers'),
+    path('test/', test_endpoint, name='test-endpoint'),
 ]
