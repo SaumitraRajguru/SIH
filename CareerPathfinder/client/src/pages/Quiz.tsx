@@ -287,7 +287,7 @@ export default function Quiz() {
                 Start Assessment (5 minutes)
               </button>
               <div className="text-sm text-gray-400">
-                <span>✨ Free • No sign-up required • Science-backed</span>
+                <span>✨ Free • Science-backed</span>
               </div>
             </div>
           </motion.div>
