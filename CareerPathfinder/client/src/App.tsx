@@ -6,6 +6,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { useAuth } from "@/hooks/use-auth";
 import Navbar from "@/components/Navbar";
 import HomePage from "@/pages/HomePage";
+import Awareness from "@/pages/Awareness";
+import WhyHigherEducation from "@/pages/awareness/WhyHigherEducation";
+import CareerOutcomes from "@/pages/awareness/CareerOutcomes";
+import Testimonials from "@/pages/awareness/Testimonials";
+import WithVsWithoutHigherEducation from "@/pages/awareness/WithVsWithoutHigherEducation";
+import GuidanceArticles from "@/pages/awareness/GuidanceArticles";
+import ScholarshipsSupport from "@/pages/awareness/ScholarshipsSupport";
+import QaChatbot from "@/pages/awareness/QaChatbot";
 import Dashboard from "@/pages/Dashboard";
 import Careers from "@/pages/Careers";
 import Roadmaps from "@/pages/Roadmaps";
@@ -31,6 +39,14 @@ function Router() {
       <Navbar />
       <Switch>
         <Route path="/" component={HomePage} />
+        <Route path="/awareness" component={Awareness} />
+        <Route path="/awareness/why-higher-education" component={WhyHigherEducation} />
+        <Route path="/awareness/career-outcomes" component={CareerOutcomes} />
+        <Route path="/awareness/testimonials" component={Testimonials} />
+        <Route path="/awareness/with-vs-without-higher-education" component={WithVsWithoutHigherEducation} />
+        <Route path="/awareness/guidance-articles" component={GuidanceArticles} />
+        <Route path="/awareness/scholarships-support" component={ScholarshipsSupport} />
+        <Route path="/awareness/qa-chatbot" component={QaChatbot} />
         <Route path="/dashboard">
           {() => <AuthenticatedRoute component={Dashboard} />}
         </Route>
