@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, CheckCircle, BarChart3, Target, Brain } from
 import { api, type Question } from '@/utils/api';
 import { useAuth } from '@/hooks/use-auth';
 import { useToast } from '@/hooks/use-toast';
+import { GrowthProspectBadge } from '@/utils/growthProspects';
 
 export default function Quiz() {
   const [currentStep, setCurrentStep] = useState<'intro' | 'quiz' | 'results'>('intro');
@@ -55,21 +56,24 @@ export default function Quiz() {
       match: 92,
       description: "Your analytical thinking and problem-solving skills align perfectly with software development.",
       skills: ["Programming", "Logic", "Creativity"],
-      color: "from-blue-600 to-cyan-500"
+      color: "from-blue-600 to-cyan-500",
+      growth_prospects: "very_high"
     },
     {
       career: "Data Scientist", 
       match: 87,
       description: "Your love for mathematics and research makes you ideal for data analysis roles.",
       skills: ["Statistics", "Analysis", "Research"],
-      color: "from-purple-600 to-pink-500"
+      color: "from-purple-600 to-pink-500",
+      growth_prospects: "very_high"
     },
     {
       career: "Product Manager",
       match: 74,
       description: "Your communication skills and strategic thinking suit product management.",
       skills: ["Leadership", "Strategy", "Communication"],
-      color: "from-green-600 to-emerald-500"
+      color: "from-green-600 to-emerald-500",
+      growth_prospects: "high"
     }
   ];
 
@@ -178,7 +182,7 @@ export default function Quiz() {
             color: getCareerColor(index),
             category: rec.career_category,
             salary_range: "Not specified",
-            growth_prospects: "Not specified",
+            growth_prospects: "medium", // Default to medium for saved recommendations
             work_environment: "Not specified"
           }));
           setCareerResults(formattedResults);
@@ -457,9 +461,14 @@ export default function Quiz() {
                     </div>
                     <div>
                       <h3 className="text-xl font-bold">{result.career}</h3>
-                      <div className="flex items-center">
-                        <span className="text-sm text-gray-400 mr-2">Match Score:</span>
-                        <span className="text-green-400 font-semibold">{result.match}%</span>
+                      <div className="flex items-center gap-4 mb-2">
+                        <div className="flex items-center">
+                          <span className="text-sm text-gray-400 mr-2">Match Score:</span>
+                          <span className="text-green-400 font-semibold">{result.match}%</span>
+                        </div>
+                        {result.growth_prospects && (
+                          <GrowthProspectBadge prospect={result.growth_prospects} />
+                        )}
                       </div>
                     </div>
                   </div>

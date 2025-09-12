@@ -5,126 +5,134 @@ class Command(BaseCommand):
     help = 'Add sample questions for career advisor quiz'
 
     def handle(self, *args, **options):
-        # Interest-based questions
+        # Interest-based questions (10 questions)
         interest_questions = [
             {
-                'text': 'What do you think about gardening? Gardening involves nurturing plants, understanding soil conditions, and creating beautiful outdoor spaces. It requires patience, attention to detail, and a connection with nature.',
+                'text': 'What do you think about working with computers and technology? This involves programming, software development, hardware design, and creating digital solutions for various problems.',
                 'category': 'interest'
             },
             {
-                'text': 'What do you think about driving a car? Driving requires spatial awareness, quick decision-making, and the ability to navigate through traffic while following safety rules and regulations.',
+                'text': 'What do you think about helping people and providing healthcare? This involves caring for patients, diagnosing medical conditions, and improving people\'s health and wellbeing.',
                 'category': 'interest'
             },
             {
-                'text': 'What do you think about advising others? Advising others involves listening to problems, analyzing situations, and providing guidance to help people make better decisions in their personal or professional lives.',
+                'text': 'What do you think about working with numbers and financial analysis? This involves analyzing financial data, managing investments, and making business decisions based on economic principles.',
                 'category': 'interest'
             },
             {
-                'text': 'What do you think about cooking? Cooking involves creativity, following recipes, understanding flavors, and the ability to prepare meals that bring joy and nourishment to people.',
+                'text': 'What do you think about designing and building things? This involves creating physical products, engineering solutions, and working with materials and manufacturing processes.',
                 'category': 'interest'
             },
             {
-                'text': 'What do you think about teaching? Teaching involves explaining complex concepts, patience with different learning styles, and the ability to inspire and guide students in their educational journey.',
+                'text': 'What do you think about teaching and sharing knowledge? This involves explaining concepts, mentoring others, and helping people learn and grow in their understanding.',
                 'category': 'interest'
             },
             {
-                'text': 'What do you think about working with computers? Computer work involves problem-solving, logical thinking, and the ability to work with various software and programming languages to create digital solutions.',
+                'text': 'What do you think about working with nature and agriculture? This involves farming, gardening, environmental conservation, and working with plants and animals.',
                 'category': 'interest'
             },
             {
-                'text': 'What do you think about helping people in need? Helping others involves empathy, compassion, and the desire to make a positive impact in people\'s lives through various forms of assistance and support.',
+                'text': 'What do you think about writing and communication? This involves creating content, reporting news, and effectively conveying information to different audiences.',
                 'category': 'interest'
             },
             {
-                'text': 'What do you think about analyzing data? Data analysis involves working with numbers, identifying patterns, and using statistical methods to draw meaningful insights from information.',
+                'text': 'What do you think about problem-solving and analytical thinking? This involves breaking down complex issues, finding solutions, and using logic to approach challenges.',
                 'category': 'interest'
             },
             {
-                'text': 'What do you think about designing things? Design involves creativity, understanding aesthetics, and the ability to create functional and visually appealing solutions for various problems.',
+                'text': 'What do you think about leadership and management? This involves guiding teams, making strategic decisions, and coordinating people and resources to achieve goals.',
                 'category': 'interest'
             },
             {
-                'text': 'What do you think about managing projects? Project management involves planning, organizing resources, coordinating teams, and ensuring successful completion of goals within time and budget constraints.',
+                'text': 'What do you think about creativity and artistic expression? This involves designing visual content, creating innovative solutions, and expressing ideas through various mediums.',
                 'category': 'interest'
             }
         ]
 
-        # Degree-based questions
+        # Degree-based questions (10 questions)
         degree_questions = [
             {
-                'text': 'What do you think about B.Com (Bachelor of Commerce)? B.Com is a 3-year undergraduate degree focusing on business, accounting, economics, and finance. It prepares students for careers in banking, finance, accounting, and business management.',
+                'text': 'What do you think about B.Tech in Computer Science/Engineering? This 4-year degree focuses on programming, software development, computer systems, and technology innovation.',
                 'category': 'degree'
             },
             {
-                'text': 'What do you think about B.Tech (Bachelor of Technology)? B.Tech is a 4-year engineering degree that focuses on technical skills, problem-solving, and innovation. It covers various specializations like computer science, mechanical, civil, and electrical engineering.',
+                'text': 'What do you think about B.Tech in Mechanical Engineering? This 4-year degree covers machine design, manufacturing, thermodynamics, and mechanical systems.',
                 'category': 'degree'
             },
             {
-                'text': 'What do you think about LLB (Bachelor of Laws)? LLB is a 3-year law degree that teaches legal principles, case studies, and legal reasoning. It prepares students for careers in law, judiciary, legal consulting, and corporate legal departments.',
+                'text': 'What do you think about B.Tech in Electrical Engineering? This 4-year degree focuses on electrical systems, power generation, electronics, and circuit design.',
                 'category': 'degree'
             },
             {
-                'text': 'What do you think about MBBS (Bachelor of Medicine and Bachelor of Surgery)? MBBS is a 5.5-year medical degree that trains students to become doctors. It involves extensive study of human anatomy, diseases, treatments, and clinical practice.',
+                'text': 'What do you think about MBBS (Bachelor of Medicine and Bachelor of Surgery)? This 5.5-year medical degree trains students to become doctors, covering human anatomy, diseases, and clinical practice.',
                 'category': 'degree'
             },
             {
-                'text': 'What do you think about B.Sc (Bachelor of Science)? B.Sc is a 3-year science degree covering subjects like physics, chemistry, biology, mathematics, and computer science. It provides a strong foundation for research and technical careers.',
+                'text': 'What do you think about BDS (Bachelor of Dental Surgery)? This 5-year dental degree prepares students to become dentists, focusing on oral health, dental procedures, and patient care.',
                 'category': 'degree'
             },
             {
-                'text': 'What do you think about BBA (Bachelor of Business Administration)? BBA is a 3-year business degree focusing on management principles, marketing, human resources, and entrepreneurship. It prepares students for leadership roles in business.',
+                'text': 'What do you think about B.Ed (Bachelor of Education)? This 2-year teacher training degree prepares students to become educators, covering teaching methods and educational psychology.',
                 'category': 'degree'
             },
             {
-                'text': 'What do you think about B.Arch (Bachelor of Architecture)? B.Arch is a 5-year architecture degree that combines creativity with technical skills. It involves designing buildings, understanding construction, and creating functional spaces.',
+                'text': 'What do you think about B.Com (Bachelor of Commerce)? This 3-year degree focuses on business, accounting, economics, and finance, preparing students for business and financial careers.',
                 'category': 'degree'
             },
             {
-                'text': 'What do you think about B.Ed (Bachelor of Education)? B.Ed is a 2-year teacher training degree that prepares students to become educators. It covers teaching methods, child psychology, and educational theories.',
+                'text': 'What do you think about BBA (Bachelor of Business Administration)? This 3-year business degree covers management, marketing, and entrepreneurship, preparing students for leadership roles.',
+                'category': 'degree'
+            },
+            {
+                'text': 'What do you think about LLB (Bachelor of Laws)? This 3-year law degree teaches legal principles and reasoning, preparing students for careers in law and judiciary.',
+                'category': 'degree'
+            },
+            {
+                'text': 'What do you think about B.Sc in Agriculture? This 4-year degree covers agricultural science, crop management, and farming techniques, preparing students for agricultural careers.',
                 'category': 'degree'
             }
         ]
 
-        # Career-based questions
+        # Career-based questions (10 questions)
         career_questions = [
             {
-                'text': 'What do you think about working in the IT sector? The IT sector involves developing software, managing networks, cybersecurity, data analysis, and creating digital solutions. It offers high growth potential and competitive salaries.',
+                'text': 'What do you think about becoming a Computer Engineer? This career involves designing computer hardware, developing software systems, and working with computer architecture and embedded systems.',
                 'category': 'career'
             },
             {
-                'text': 'What do you think about becoming a lawyer? Being a lawyer involves representing clients in court, providing legal advice, drafting documents, and ensuring justice. It requires strong analytical skills and knowledge of law.',
+                'text': 'What do you think about becoming a Mechanical Engineer? This career involves designing machines, manufacturing systems, and working with mechanical components and engineering solutions.',
                 'category': 'career'
             },
             {
-                'text': 'What do you think about becoming a doctor? Being a doctor involves diagnosing and treating patients, performing surgeries, and saving lives. It requires extensive medical knowledge, compassion, and the ability to work under pressure.',
+                'text': 'What do you think about becoming an Electrical Engineer? This career involves designing electrical systems, working with power generation, and developing electronic devices and circuits.',
                 'category': 'career'
             },
             {
-                'text': 'What do you think about becoming a teacher? Teaching involves educating students, developing lesson plans, and inspiring young minds. It requires patience, communication skills, and a passion for knowledge sharing.',
+                'text': 'What do you think about becoming a Doctor? This career involves diagnosing and treating patients, performing medical procedures, and providing healthcare services to improve people\'s health.',
                 'category': 'career'
             },
             {
-                'text': 'What do you think about becoming an engineer? Engineering involves designing, building, and maintaining systems and structures. It requires problem-solving skills, technical knowledge, and the ability to work with complex systems.',
+                'text': 'What do you think about becoming a Dentist? This career involves treating dental problems, performing oral surgeries, and providing preventive dental care to maintain oral health.',
                 'category': 'career'
             },
             {
-                'text': 'What do you think about becoming a business manager? Business management involves leading teams, making strategic decisions, and ensuring organizational success. It requires leadership skills, analytical thinking, and business acumen.',
+                'text': 'What do you think about becoming a Teacher? This career involves educating students, developing lesson plans, and inspiring young minds through knowledge sharing and mentorship.',
                 'category': 'career'
             },
             {
-                'text': 'What do you think about becoming a designer? Design involves creating visual solutions, understanding user needs, and combining aesthetics with functionality. It requires creativity, technical skills, and attention to detail.',
+                'text': 'What do you think about becoming a Farmer? This career involves cultivating crops, raising livestock, and managing agricultural operations to produce food and agricultural products.',
                 'category': 'career'
             },
             {
-                'text': 'What do you think about becoming a researcher? Research involves investigating problems, conducting experiments, and contributing to knowledge. It requires curiosity, analytical skills, and the ability to work independently.',
+                'text': 'What do you think about becoming an Investment Banker? This career involves helping companies raise capital, providing financial advisory services, and facilitating business transactions.',
                 'category': 'career'
             },
             {
-                'text': 'What do you think about becoming a social worker? Social work involves helping vulnerable populations, advocating for social justice, and providing support services. It requires empathy, communication skills, and a desire to help others.',
+                'text': 'What do you think about becoming a Lawyer? This career involves providing legal advice, representing clients in court, and ensuring justice and legal compliance in various matters.',
                 'category': 'career'
             },
             {
-                'text': 'What do you think about becoming an entrepreneur? Entrepreneurship involves starting and running your own business, taking risks, and creating innovative solutions. It requires creativity, leadership, and the ability to handle uncertainty.',
+                'text': 'What do you think about becoming a News Reporter? This career involves researching news stories, interviewing people, and reporting information to keep the public informed about current events.',
                 'category': 'career'
             }
         ]

@@ -170,6 +170,83 @@ class Command(BaseCommand):
                 'salary_range': '₹4-20 LPA',
                 'growth_prospects': 'medium',
                 'work_environment': 'Hotels, Resorts, Hospitality establishments'
+            },
+            {
+                'name': 'Computer Engineer',
+                'category': 'Engineering & Technology',
+                'description': 'Design and develop computer hardware and software systems. Work on computer architecture, embedded systems, and network infrastructure.',
+                'required_skills': ['Hardware Design', 'Programming', 'Electronics', 'Problem Solving', 'System Architecture'],
+                'interest_keywords': ['computers', 'hardware', 'electronics', 'systems', 'technology', 'engineering'],
+                'degree_requirements': ['B.Tech', 'Computer Engineering', 'Electronics Engineering'],
+                'salary_range': '₹5-22 LPA',
+                'growth_prospects': 'very_high',
+                'work_environment': 'Tech companies, Manufacturing, Research labs'
+            },
+            {
+                'name': 'Mechanical Engineer',
+                'category': 'Engineering & Technology',
+                'description': 'Design, analyze, and manufacture mechanical systems and devices. Work on machines, engines, and mechanical components.',
+                'required_skills': ['Mechanical Design', 'CAD', 'Problem Solving', 'Mathematics', 'Physics'],
+                'interest_keywords': ['machines', 'mechanical', 'engineering', 'design', 'manufacturing', 'physics'],
+                'degree_requirements': ['B.Tech', 'Mechanical Engineering', 'Engineering'],
+                'salary_range': '₹4-18 LPA',
+                'growth_prospects': 'high',
+                'work_environment': 'Manufacturing plants, Engineering firms, Automotive industry'
+            },
+            {
+                'name': 'Electrical Engineer',
+                'category': 'Engineering & Technology',
+                'description': 'Design and develop electrical systems, power generation, and electronic devices. Work on electrical infrastructure and power systems.',
+                'required_skills': ['Electrical Systems', 'Circuit Design', 'Power Systems', 'Mathematics', 'Problem Solving'],
+                'interest_keywords': ['electrical', 'power', 'circuits', 'electronics', 'energy', 'engineering'],
+                'degree_requirements': ['B.Tech', 'Electrical Engineering', 'Electronics Engineering'],
+                'salary_range': '₹4-20 LPA',
+                'growth_prospects': 'high',
+                'work_environment': 'Power companies, Manufacturing, Government agencies'
+            },
+            {
+                'name': 'Dentist',
+                'category': 'Medical & Healthcare',
+                'description': 'Diagnose and treat dental problems, perform oral surgeries, and provide preventive dental care to patients.',
+                'required_skills': ['Dental Knowledge', 'Manual Dexterity', 'Communication', 'Attention to Detail', 'Compassion'],
+                'interest_keywords': ['dental', 'teeth', 'oral health', 'healthcare', 'medicine', 'surgery'],
+                'degree_requirements': ['BDS', 'Dental', 'Medical'],
+                'salary_range': '₹6-25 LPA',
+                'growth_prospects': 'high',
+                'work_environment': 'Dental clinics, Hospitals, Private practice'
+            },
+            {
+                'name': 'Farmer',
+                'category': 'Agriculture & Environment',
+                'description': 'Cultivate crops, raise livestock, and manage agricultural operations. Work with nature to produce food and agricultural products.',
+                'required_skills': ['Agricultural Knowledge', 'Physical Stamina', 'Problem Solving', 'Business Management', 'Patience'],
+                'interest_keywords': ['farming', 'agriculture', 'crops', 'livestock', 'nature', 'gardening'],
+                'degree_requirements': ['B.Sc Agriculture', 'Diploma in Agriculture', 'Any degree'],
+                'salary_range': '₹2-15 LPA',
+                'growth_prospects': 'medium',
+                'work_environment': 'Farms, Agricultural fields, Rural areas'
+            },
+            {
+                'name': 'Investment Banker',
+                'category': 'Business & Finance',
+                'description': 'Help companies raise capital, provide financial advisory services, and facilitate mergers and acquisitions.',
+                'required_skills': ['Financial Analysis', 'Communication', 'Negotiation', 'Mathematics', 'Business Acumen'],
+                'interest_keywords': ['finance', 'banking', 'investment', 'money', 'business', 'analysis'],
+                'degree_requirements': ['B.Com', 'BBA', 'MBA', 'Finance', 'Economics'],
+                'salary_range': '₹8-50 LPA',
+                'growth_prospects': 'very_high',
+                'work_environment': 'Investment banks, Financial firms, Corporate offices'
+            },
+            {
+                'name': 'News Reporter',
+                'category': 'Media & Communication',
+                'description': 'Research, investigate, and report news stories. Interview people, gather information, and present news to the public.',
+                'required_skills': ['Communication', 'Writing', 'Research', 'Interviewing', 'Critical Thinking'],
+                'interest_keywords': ['news', 'reporting', 'journalism', 'writing', 'communication', 'investigation'],
+                'degree_requirements': ['B.A', 'Journalism', 'Mass Communication', 'English'],
+                'salary_range': '₹3-12 LPA',
+                'growth_prospects': 'medium',
+                'work_environment': 'News agencies, TV stations, Newspapers, Online media'
             }
         ]
 

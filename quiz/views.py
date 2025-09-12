@@ -3,6 +3,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
+from django.db.models import Q
+import random
 from .models import Question, Answer, Career, CareerRecommendation
 from .serializers import QuestionSerializer, AnswerSerializer, CareerSerializer, CareerRecommendationSerializer
 from .career_analysis import CareerAnalyzer
@@ -10,15 +12,23 @@ from .career_analysis import CareerAnalyzer
 User = get_user_model()
 
 class QuestionListView(generics.ListAPIView):
-    queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    
+    def get_queryset(self):
+        questions = list(Question.objects.all())
+        # Randomize the order of all questions
+        random.shuffle(questions)
+        return questions
 
 class QuestionByCategoryView(generics.ListAPIView):
     serializer_class = QuestionSerializer
     
     def get_queryset(self):
         category = self.kwargs['category']
-        return Question.objects.filter(category=category)
+        questions = list(Question.objects.filter(category=category))
+        # Randomize the order of questions within the category
+        random.shuffle(questions)
+        return questions
 
 class AnswerCreateView(generics.CreateAPIView):
     queryset = Answer.objects.all()
