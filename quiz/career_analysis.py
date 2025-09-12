@@ -36,15 +36,28 @@ class CareerAnalyzer:
         career_scores = []
         for career in careers:
             score, reasoning = self._calculate_career_score(user_answers, career)
-            if score > 0:  # Only include careers with positive scores
-                career_scores.append({
-                    'career': career,
-                    'score': score,
-                    'reasoning': reasoning
-                })
+            # Include all careers, even with low scores, to provide comprehensive recommendations
+            career_scores.append({
+                'career': career,
+                'score': score,
+                'reasoning': reasoning
+            })
         
         # Sort by score (highest first)
         career_scores.sort(key=lambda x: x['score'], reverse=True)
+        
+        # Ensure we have at least some recommendations
+        if not career_scores or all(score['score'] < 10 for score in career_scores):
+            # If no good matches, return top careers with basic reasoning
+            top_careers = Career.objects.all()[:5]
+            fallback_recommendations = []
+            for career in top_careers:
+                fallback_recommendations.append({
+                    'career': career,
+                    'score': 15.0,  # Base score
+                    'reasoning': f"General career option based on your responses; {career.description[:100]}..."
+                })
+            career_scores = fallback_recommendations
         
         # Save recommendations to database
         self._save_recommendations(user, career_scores[:10])  # Top 10
@@ -62,22 +75,28 @@ class CareerAnalyzer:
         interest_score = self._analyze_interest_answers(user_answers, career)
         total_score += interest_score * 0.4  # 40% weight
         if interest_score > 0:
-            reasoning_parts.append(f"Strong interest alignment ({interest_score:.1f}/10)")
+            reasoning_parts.append(f"Interest alignment ({interest_score:.1f}/10)")
+        else:
+            reasoning_parts.append("Limited interest data")
         
         # Analyze degree-based answers
         degree_score = self._analyze_degree_answers(user_answers, career)
         total_score += degree_score * 0.3  # 30% weight
         if degree_score > 0:
             reasoning_parts.append(f"Educational path match ({degree_score:.1f}/10)")
+        else:
+            reasoning_parts.append("No specific degree preference")
         
         # Analyze career-specific answers
         career_score = self._analyze_career_answers(user_answers, career)
         total_score += career_score * 0.3  # 30% weight
         if career_score > 0:
             reasoning_parts.append(f"Career preference match ({career_score:.1f}/10)")
+        else:
+            reasoning_parts.append("No direct career mention")
         
-        # Convert to percentage (0-100)
-        final_score = min(100, max(0, (total_score / 10) * 100))
+        # Convert to percentage (0-100), but ensure minimum score of 10%
+        final_score = min(100, max(10, (total_score / 10) * 100))
         
         reasoning = "; ".join(reasoning_parts) if reasoning_parts else "Limited data available"
         
@@ -106,10 +125,12 @@ class CareerAnalyzer:
                     break
         
         if matched_answers == 0:
-            return 0
+            # Give a small base score even if no keywords match
+            return 1.0
         
-        # Normalize to 0-10 scale
-        return max(0, (total_score / matched_answers + 2) * 2.5)
+        # Normalize to 0-10 scale, but ensure minimum score
+        normalized_score = max(0, (total_score / matched_answers + 2) * 2.5)
+        return max(1.0, normalized_score)  # Minimum score of 1.0
     
     def _analyze_degree_answers(self, user_answers: List[Answer], career: Career) -> float:
         """
@@ -134,10 +155,12 @@ class CareerAnalyzer:
                     break
         
         if matched_answers == 0:
-            return 0
+            # Give a small base score even if no degree matches
+            return 1.0
         
-        # Normalize to 0-10 scale
-        return max(0, (total_score / matched_answers + 2) * 2.5)
+        # Normalize to 0-10 scale, but ensure minimum score
+        normalized_score = max(0, (total_score / matched_answers + 2) * 2.5)
+        return max(1.0, normalized_score)  # Minimum score of 1.0
     
     def _analyze_career_answers(self, user_answers: List[Answer], career: Career) -> float:
         """
@@ -168,10 +191,12 @@ class CareerAnalyzer:
                         break
         
         if matched_answers == 0:
-            return 0
+            # Give a small base score even if no career matches
+            return 1.0
         
-        # Normalize to 0-10 scale
-        return max(0, (total_score / matched_answers + 2) * 2.5)
+        # Normalize to 0-10 scale, but ensure minimum score
+        normalized_score = max(0, (total_score / matched_answers + 2) * 2.5)
+        return max(1.0, normalized_score)  # Minimum score of 1.0
     
     def _save_recommendations(self, user: User, career_scores: List[Dict]):
         """
