@@ -7,11 +7,12 @@ from .views import (
     quiz_stats,
     submit_quiz_answers
 )
-
+from .views import DialogflowWebhookView  # <-- Add this line
 urlpatterns = [
     # Questions
     path('questions/', QuestionListView.as_view(), name='question-list'),
     path('questions/<str:category>/', QuestionByCategoryView.as_view(), name='question-by-category'),
+    path('webhook/', DialogflowWebhookView.as_view(), name='dialogflow-webhook'),
     
     # Answers
     path('answers/', AnswerCreateView.as_view(), name='answer-create'),

@@ -1,4 +1,6 @@
 from pathlib import Path
+import os
+import environ
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -8,7 +10,10 @@ SECRET_KEY = 'django-insecure-your-secret-key-here-change-in-production'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+# career_advisor/settings.py
+...
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '20738e93f9d4.ngrok-free.app']
+...
 
 # Application definition
 ROOT_URLCONF = 'career_advisor.urls'
@@ -21,6 +26,8 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+# career_advisor/settings.py
+...
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -35,8 +42,9 @@ INSTALLED_APPS = [
 
     # Apps
     'users',
-    'quiz',
+    'quiz',  # <-- Make sure this line is present
 ]
+...
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -95,3 +103,19 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Initialize environment variables
+env = environ.Env(
+    # set casting and default values
+    DEBUG=(bool, False)
+)
+
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# career_advisor/settings.py
+...
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = env('DJANGO_SECRET_KEY')
+
+...
