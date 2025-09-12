@@ -3,8 +3,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
-from .models import Question, Answer
-from .serializers import QuestionSerializer, AnswerSerializer
+from .models import Question, Answer, Career, CareerRecommendation
+from .serializers import QuestionSerializer, AnswerSerializer, CareerSerializer, CareerRecommendationSerializer
+from .career_analysis import CareerAnalyzer
 
 User = get_user_model()
 
@@ -90,4 +91,93 @@ def submit_quiz_answers(request):
         'created_answers': created_answers,
         'errors': errors,
         'total_submitted': len(created_answers)
+    })
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def analyze_career_recommendations(request):
+    """Analyze user's quiz responses and return career recommendations"""
+    user = request.user
+    print(f"Analyzing career recommendations for user: {user.username}")
+    
+    # Check if user has completed the quiz
+    user_answers = Answer.objects.filter(user=user)
+    print(f"Found {user_answers.count()} answers for user")
+    
+    if not user_answers.exists():
+        print("No answers found for user")
+        return Response({
+            'error': 'No quiz responses found. Please complete the quiz first.'
+        }, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Analyze responses
+    print("Starting career analysis...")
+    analyzer = CareerAnalyzer()
+    recommendations = analyzer.analyze_user_responses(user)
+    print(f"Analysis complete. Found {len(recommendations)} recommendations")
+    
+    # Format response
+    formatted_recommendations = []
+    for rec in recommendations:
+        career = rec['career']
+        formatted_recommendations.append({
+            'id': career.id,
+            'name': career.name,
+            'category': career.category,
+            'description': career.description,
+            'match_score': round(rec['score'], 1),
+            'reasoning': rec['reasoning'],
+            'required_skills': career.required_skills,
+            'salary_range': career.salary_range,
+            'growth_prospects': career.growth_prospects,
+            'work_environment': career.work_environment
+        })
+    
+    print(f"Returning {len(formatted_recommendations)} formatted recommendations")
+    return Response({
+        'recommendations': formatted_recommendations,
+        'total_analyzed': len(recommendations)
+    })
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_user_recommendations(request):
+    """Get saved career recommendations for the user"""
+    user = request.user
+    
+    recommendations = CareerRecommendation.objects.filter(user=user).order_by('-match_score')[:5]
+    
+    serializer = CareerRecommendationSerializer(recommendations, many=True)
+    return Response({
+        'recommendations': serializer.data
+    })
+
+@api_view(['GET'])
+def get_all_careers(request):
+    """Get all available careers"""
+    careers = Career.objects.all()
+    serializer = CareerSerializer(careers, many=True)
+    return Response({
+        'careers': serializer.data
+    })
+
+@api_view(['GET'])
+def test_endpoint(request):
+    """Test endpoint to verify Django is working"""
+    return Response({
+        'message': 'Django backend is working!',
+        'careers_count': Career.objects.count(),
+        'questions_count': Question.objects.count()
+    })
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_disliked_careers(request):
+    """Get careers the user has disliked"""
+    user = request.user
+    analyzer = CareerAnalyzer()
+    disliked_careers = analyzer.get_user_disliked_careers(user)
+    
+    return Response({
+        'disliked_careers': disliked_careers
     })
